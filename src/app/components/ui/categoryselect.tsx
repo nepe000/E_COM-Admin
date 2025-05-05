@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React from "react";
@@ -18,7 +19,7 @@ const CategorySelect: React.FC = () => {
     fieldState: { error },
   } = useController({ name: "category", control });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<any>({
     queryKey: ["categories"],
     queryFn: getAllCategory,
   });
