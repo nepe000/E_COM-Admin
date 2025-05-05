@@ -20,7 +20,7 @@ type Category = {
 export const CategoryList = () => {
   const columnHelper = createColumnHelper<Category>();
   const queryClient = useQueryClient();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<any>({
     queryFn: getAllCategory,
     queryKey: ["categories"],
   });

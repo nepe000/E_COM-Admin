@@ -1,3 +1,4 @@
+import { ProductList } from "@/app/components/product/list";
 import PageHeading from "@/app/components/ui/page-heading";
 
 const Page = () => {
@@ -5,9 +6,12 @@ const Page = () => {
     <div>
       <PageHeading
         title="Product List"
-        link="/product/create"
+        link="/products/create"
         buttonText="Add new product"
       />{" "}
+      <div>
+        <ProductList />
+      </div>
     </div>
   );
 };

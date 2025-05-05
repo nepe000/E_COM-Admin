@@ -8,6 +8,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAllProducts, deleteProduct } from "@/api/product";
 import { Actions } from "../ui/tableactions";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 type Category = {
   _id: string;
@@ -18,12 +19,13 @@ type Category = {
 };
 
 export const ProductList = () => {
-  const columnHelper = createColumnHelper<Category>();
+  const columnHelper = createColumnHelper<any>();
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery<any>({
     queryFn: getAllProducts,
     queryKey: ["products"],
   });
+  console.log(data);
 
   const { isPending, mutate } = useMutation({
     mutationFn: deleteProduct,
@@ -47,13 +49,33 @@ export const ProductList = () => {
   const columns = [
     columnHelper.accessor("name", {
       cell: (info) => info.getValue(),
-      header: () => <span>Category Name</span>,
+      header: () => <span>Product Name</span>,
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor((row) => row.description, {
       id: "description",
       cell: (info) => <i>{info.getValue() ?? "-"}</i>,
       header: () => <span>Description</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("price", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Price</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("coverImage", {
+      cell: (info) => (
+        <div className="h-20 w-20">
+          <Image
+            height={100}
+            width={100}
+            src={info.getValue()[0].path ?? ""}
+            alt="Cover Image"
+          />
+        </div>
+      ),
+
+      header: () => <span>Cover Image</span>,
       footer: (info) => info.column.id,
     }),
 
